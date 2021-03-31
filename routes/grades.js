@@ -30,7 +30,7 @@ router.post("/", async (req, res) =>{
   } catch (error) {
     res.status(400).send({error: error.message});
   }
-})
+});
 
 router.put("/", async (req, res) =>{
   try {
@@ -50,7 +50,7 @@ router.put("/", async (req, res) =>{
   } catch (error) {
     res.status(400).send({error: error.message});
   }
-})
+});
 
 router.delete("/:id", async (req, res) =>{
   const data = JSON.parse(await readFile(global.fileName));
@@ -59,7 +59,7 @@ router.delete("/:id", async (req, res) =>{
   
   await writeFile(global.fileName, JSON.stringify(data, null, 2));
   res.end();
-})
+});
 
 router.get("/:id", async (req, res) => {
   try {
@@ -73,7 +73,33 @@ router.get("/:id", async (req, res) => {
   } catch (error) {
     res.status(400).send({error: error.message});
   }
-})
+});
+
+router.get("/consulta", async (req, res) => {
+  console.log("Entrou aqui");
+  res.send("Ola");
+});
+
+router.get("/", async (req, res) => {
+  try {
+    let grade = req.body;
+
+    const data = JSON.parse(await readFile(global.fileName));
+
+    data.grades = data.grades.filter(
+      gradex => gradex.student === grade.student && gradex.subject === grade.subject);
+    
+    const total = data.grades.reduce((accumulator, current)=>{
+      return accumulator + current.value;
+  
+    }, 0);
+
+   res.send("total da nota: "+total);
+    
+  } catch (error) {
+    res.status(400).send({error: error.message});
+  }
+});
 
 router.get("/", async (req, res) => {
   try {
@@ -81,7 +107,7 @@ router.get("/", async (req, res) => {
    
     const data = JSON.parse(await readFile(global.fileName));
     data.grades = data.grades.filter(
-      gradex => gradex.student === grade.student && gradex.subject === grade.subject);
+      gradex => gradex.subject === grade.subject && gradex.type === grade.type);
     const total = data.grades.reduce((accumulator, current)=>{
       return accumulator + current.value;
   
@@ -93,6 +119,6 @@ router.get("/", async (req, res) => {
   } catch (error) {
     res.status(400).send({error: error.message});
   }
-})
+});
 
 export default router;
