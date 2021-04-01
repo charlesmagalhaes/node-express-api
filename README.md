@@ -3,6 +3,8 @@
 - Aplicativo permite fazer GET, PUT, POST, DELETE.
 
 
+![api-nodejs-express](https://user-images.githubusercontent.com/67280323/113334966-bae54900-92fa-11eb-9b9e-9e8983505f33.png)
+
 
 
 ## Tecnologia envolvida
