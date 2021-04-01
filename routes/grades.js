@@ -75,11 +75,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.get("/consulta", async (req, res) => {
-  console.log("Entrou aqui");
-  res.send("Ola");
-});
-
 router.get("/", async (req, res) => {
   try {
     let grade = req.body;
